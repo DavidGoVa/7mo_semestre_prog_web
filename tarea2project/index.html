@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea1</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+    <marquee behavior="scroll" direction="left"><h1>Hola Mundo</h1></marquee>
+    <button class="btn btn-primary" onclick="presioname()">Presioname</button><br>
+
+    <input class="form-control" id="numero1" type="number" step="0.01" placeholder="numero 1">+<input class="form-control" id="numero2" type="number" step="0.01" placeholder="numero 2">
+    <button class="btn btn-primary" onclick="sumar( )">SUMAR</button>
+    <p id="resultado">Aqui va el resultado</p>
+    <br>
+    <br>
+    <h2>CALCULA TU MASA CORPORAL</h2>
+    <input class="form-control" type="number" id="weight" step="0.1" placeholder="peso" required>
+    <input class="form-control" type="number" id="height" step="0.1" placeholder="altura" required>
+    <button class="btn btn-primary" type="button" onclick="calculateBMI()">Calcular IMC</button>
+    <div id="result" class="result">Escribe tus datos para calcular tu masa corporal</div>
+    <script src="app.js"></script>
+</body>
+</html>

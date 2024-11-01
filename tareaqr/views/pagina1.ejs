@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar QR</title>
+</head>
+<body>
+    <h1>Formulario para Generar QR</h1>
+    <form action="/generarQR" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id" required><br><br>
+
+        <label for="carrera">Carrera:</label>
+        <input type="text" id="carrera" name="carrera" required><br><br>
+
+        <label for="semestre">Semestre:</label>
+        <input type="text" id="semestre" name="semestre" required><br><br>
+
+        <label for="turno">Turno:</label>
+        <input type="text" id="turno" name="turno" required><br><br>
+
+        <label for="colorFavorito">Color Favorito:</label>
+        <input type="text" id="colorFavorito" name="colorFavorito" required><br><br>
+
+        <button type="submit">Generar QR</button>
+    </form>
+
+    <% if (qrCodeUrl) { %>
+        <h2>Tu Código QR</h2>
+        <img src="<%= qrCodeUrl %>" alt="Código QR">
+    <% } %>
+</body>
+</html>

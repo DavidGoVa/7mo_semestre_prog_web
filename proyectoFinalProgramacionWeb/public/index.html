@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD con Express y MySQL</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header>
+    <h1>CRUD con Express y MySQL</h1>
+  </header>
+  <main>
+    <form id="crudForm">
+      <input type="text" id="nombre" placeholder="Nombre" required>
+      <input type="email" id="correo" placeholder="Correo" required>
+      <button type="submit">Crear Usuario</button>
+    </form>
+    <table id="usuariosTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+  <script>
+    const form = document.getElementById('crudForm');
+    const usuariosTable = document.querySelector('#usuariosTable tbody');
+
+    // Leer usuarios
+    function cargarUsuarios() {
+      fetch('/read')
+        .then(res => res.json())
+        .then(data => {
+          usuariosTable.innerHTML = '';
+          data.forEach(usuario => {
+            usuariosTable.innerHTML += `
+              <tr>
+                <td>${usuario.id}</td>
+                <td>${usuario.nombre}</td>
+                <td>${usuario.correo}</td>
+                <td>
+                  <button onclick="actualizarUsuario(${usuario.id})">Editar</button>
+                  <button onclick="eliminarUsuario(${usuario.id})">Eliminar</button>
+                </td>
+              </tr>
+            `;
+          });
+        });
+    }
+
+    // Crear usuario
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const nombre = document.getElementById('nombre').value;
+      const correo = document.getElementById('correo').value;
+
+      fetch('/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, correo }),
+      })
+        .then(() => {
+          form.reset();
+          cargarUsuarios();
+        });
+    });
+
+    // Eliminar usuario
+    function eliminarUsuario(id) {
+      fetch(`/delete/${id}`, { method: 'DELETE' })
+        .then(() => cargarUsuarios());
+    }
+
+    // Actualizar usuario
+    function actualizarUsuario(id) {
+      const nombre = prompt('Nuevo nombre:');
+      const correo = prompt('Nuevo correo:');
+      if (nombre && correo) {
+        fetch(`/update/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre, correo }),
+        })
+          .then(() => cargarUsuarios());
+      }
+    }
+
+    cargarUsuarios();
+  </script>
+</body>
+</html>

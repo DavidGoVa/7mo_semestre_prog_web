@@ -16,6 +16,7 @@
       <input type="email" id="correo" placeholder="Correo" required>
       <button type="submit">Crear Usuario</button>
     </form>
+    <!--se crea la tabla donde se pondran todos los registroas-->
     <table id="usuariosTable">
       <thead>
         <tr>
@@ -28,12 +29,14 @@
       <tbody></tbody>
     </table>
   </main>
+  <!--con este script se llena dinamicamente la tabla -->
   <script>
     const form = document.getElementById('crudForm');
     const usuariosTable = document.querySelector('#usuariosTable tbody');
 
     // Leer usuarios
     function cargarUsuarios() {
+        //carga la funcion read
       fetch('/read')
         .then(res => res.json())
         .then(data => {
@@ -59,7 +62,7 @@
       e.preventDefault();
       const nombre = document.getElementById('nombre').value;
       const correo = document.getElementById('correo').value;
-
+//carga la funcion crear
       fetch('/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -90,7 +93,7 @@
           .then(() => cargarUsuarios());
       }
     }
-
+//ejecuta la funcion que carga a los usuarios
     cargarUsuarios();
   </script>
 </body>
